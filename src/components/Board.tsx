@@ -1,6 +1,6 @@
 import React from "react";
 import Square from "./Square";
-import { solve, generatePuzzle } from "../modules";
+import { solve, generatePuzzle, valid, checkSolution } from "../modules";
 
 interface Props {
     boardSize: number;
@@ -9,6 +9,7 @@ interface Props {
 interface State {
     board: Array<number | undefined>;
     boardSize: number;
+    result: boolean | undefined;
 }
 
 class Board extends React.Component<Props, State>{
@@ -18,6 +19,7 @@ class Board extends React.Component<Props, State>{
         this.state = {
             board: [],
             boardSize: props.boardSize,
+            result: undefined
         }
 
 
@@ -60,6 +62,12 @@ class Board extends React.Component<Props, State>{
         this.setState({board: newBoard});
     }
 
+    check = (): boolean => {
+        let res = checkSolution(this.state.board, this.state.boardSize);
+        console.log("checking solution", res);
+        return res;
+    }
+
     render(){
         // i -> rows
         // j -> cols
@@ -75,8 +83,16 @@ class Board extends React.Component<Props, State>{
                     <button className="btn" onClick={() => {
                         this.setState({board: generatePuzzle(this.state.boardSize)});
                     }}>New game</button>
+                    <button className="btn" onClick={() => {
+                        this.setState({result: this.check()});
+                    }}>
+                        check
+                    </button>
                 </div>
                 {board}
+                <div className="result-div">
+                    {this.state.result === true ? "Correct" : "Wrong"}
+                </div>
             </React.Fragment>
         );
     }

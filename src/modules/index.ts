@@ -4,6 +4,8 @@
  * @param boardSize size of the board
  */
 
+import { count } from "console";
+
 export function find_empty(board: Array<number | undefined>, boardSize: number): number | undefined  {
     for (let i = 0; i < board.length; i++){
         if(board[i] == undefined){
@@ -113,4 +115,57 @@ export function generatePuzzle(boardSize: number): Array<number> {
         grid[randomIndex] = undefined;
     }
     return grid;
+}
+
+/**
+ * check if the board is solved correctly
+ * @param board board solved
+ * @param boardSize size of the board
+ */
+export function checkSolution(board: Array<number | undefined>, boardSize: number): boolean{
+    let countSet = new Set();
+
+    for(let i = 0; i < board.length; i++){
+        if(board[i] == undefined){
+            return false;
+        }
+        let row = Math.floor(i / boardSize**2);
+        let col = i % boardSize**2;
+        // check the row
+        for(let i = 0; i < boardSize**2; i++){
+            countSet.add(board[row * boardSize**2 +i]);
+        }
+        if(countSet.size != boardSize**2){
+            console.log("error row", row);
+            console.log(countSet)
+            return false;
+        }
+        countSet.clear();
+    
+        // check the col
+        for (let i = 0; i < boardSize**2; i++){
+            countSet.add(board[col + i*boardSize**2]);
+        }
+        if(countSet.size != boardSize**2){
+            console.log("error col", col);
+            return false;
+        }
+        countSet.clear();
+        
+        // check the box
+        let box_x = Math.floor(col / boardSize);
+        let box_y = Math.floor(row / boardSize);
+        for (let i = box_y * boardSize; i < box_y*boardSize + boardSize; i++){
+            for (let j = box_x * boardSize; j < box_x * boardSize + boardSize; j++){
+                let index = i*(boardSize**2) + j;
+                //console.log("square check", possibleIndex);
+                countSet.add(board[index]);
+            }
+        }
+        if(countSet.size != boardSize**2){
+            console.log("error square", box_y, box_x);
+            return false;
+        }
+    }
+    return true;
 }
