@@ -1,27 +1,13 @@
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background-color: #7681a2;
+  width: 100vw;
+  height: 100vh;
 }
 
 .square {
@@ -32,9 +18,30 @@
   transition: 0.5s ease;
   margin: 0;
   padding: 0;
+  vertical-align: middle;
+  text-align: center;
+  background-color: #7681a2;
+  font-size: 1.1em;
 }
 
 .square:hover {
   background-color: lightblue;
+}
+
+.header {
+  background-color: #4e5c85;
+  height: 10vh;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  font-size: calc(10px + 2vmin);
+
+  margin-bottom: 100px;
+}
+
+.header .title {
+  justify-self: center;
+  align-self: center;
 }
 
