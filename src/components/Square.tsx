@@ -13,10 +13,12 @@ class Square extends React.Component<Props, State> {
 
     render(){
         return (
-            <div className="square"
-                onMouseEnter={() => console.log(this.props.index, this.props.value)}>
-                {this.props.value}
-            </div>
+            <input className="square"
+                contentEditable="true"
+                onChange={(ev) => {
+                    let value: number = Number(ev.target.value);
+                    this.props.changeValue(this.props.index, value);
+                }} />
         )
     }
 }
