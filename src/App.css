@@ -37,7 +37,7 @@
   align-content: center;
   font-size: calc(10px + 2vmin);
 
-  margin-bottom: 100px;
+  margin-bottom: 30px;
 }
 
 .header .title {
@@ -45,3 +45,21 @@
   align-self: center;
 }
 
+.btn {
+  text-transform: uppercase;
+  width: 15vw;
+  min-width: 50px;
+  padding: 10px;
+  text-shadow: 1em;
+  color: white;
+  background-color: #7681c0;
+  border: 1px solid #4e5c85;
+  margin: 10px;
+}
+
+.btn:hover {
+  background-color: #4e5caa;
+}
+.btns-control {
+  margin-bottom: 15px;
+}

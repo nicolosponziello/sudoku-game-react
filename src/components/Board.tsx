@@ -65,15 +65,17 @@ class Board extends React.Component<Props, State>{
         let board = this.createBoard();
         return (
             <React.Fragment>
+                <div className="btns-control">
+                    <button className="btn" onClick={() => {
+                        if(solve(this.state.board, this.state.boardSize)){
+                            this.setState({board: this.state.board});
+                        }
+                    }}>solve</button>
+                    <button className="btn" onClick={() => {
+                        this.setState({board: generatePuzzle(this.state.boardSize)});
+                    }}>New game</button>
+                </div>
                 {board}
-                <button onClick={() => {
-                    if(solve(this.state.board, this.state.boardSize)){
-                        this.setState({board: this.state.board});
-                    }
-                }}>solve</button>
-                <button onClick={() => {
-                    this.setState({board: generatePuzzle(this.state.boardSize)});
-                }}>Reset</button>
             </React.Fragment>
         );
     }
