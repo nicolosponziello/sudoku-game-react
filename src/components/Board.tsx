@@ -1,6 +1,6 @@
 import React from "react";
 import Square from "./Square";
-import { rootCertificates } from "tls";
+import { solve, generatePuzzle } from "../modules";
 
 interface Props {
     boardSize: number;
@@ -40,25 +40,40 @@ class Board extends React.Component<Props, State>{
         for (let i = 0; i < this.state.boardSize**2; i++){
             let row = [];
             for (let j = 0; j < this.state.boardSize**2; j++){
-                row.push(<Square key={i+j} 
-                                value={this.state.board[i*this.state.boardSize**2 + j]} 
+                row.push(<Square key={i*this.state.boardSize**2+j} 
                                 index={i*this.state.boardSize**2+j} 
-                                changeValue={this.changeCellValue} />);
+                                changeValue={this.changeCellValue}
+                                value={this.state.board[i*this.state.boardSize**2+j]} />);
             }
             row.push(< br/>);
             board.push(row);
         }
         return board;
     }
+    reset = () => {
+        let newBoard = [];
+        let cellsNum:number = this.props.boardSize**4;
+        for (let i = 0; i < cellsNum; i++){
+            newBoard.push(undefined);
+        }
+        this.setState({board: newBoard});
+    }
 
     render(){
         // i -> rows
         // j -> cols
         let board = this.createBoard();
-        console.log(board);
         return (
             <React.Fragment>
                 {board}
+                <button onClick={() => {
+                    if(solve(this.state.board, this.state.boardSize)){
+                        this.setState({board: this.state.board});
+                    }
+                }}>solve</button>
+                <button onClick={() => {
+                    this.setState({board: generatePuzzle(this.state.boardSize)});
+                }}>Reset</button>
             </React.Fragment>
         );
     }
