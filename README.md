@@ -12,6 +12,8 @@ This project allows to:
 * play the game
 * solve the board automatically
 
+The theory behind this project is taken from https://dlbeer.co.nz/articles/sudoku.html
+
 ### Solving the board
 The algorithm used to solve the board uses a technique called __BACKTRACKING__. The idea of this technique is to try to guess a possible partial solution,
 check if correct and proceed generating the remaining unsolved spots. When a spot cannot have a solution, then it backtracks, removing the previous generated step and going forward from there.
