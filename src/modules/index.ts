@@ -26,7 +26,7 @@ export function valid(board: Array<number | undefined>, index: number, possibleN
     // check the row
     for(let i = 0; i < boardSize**2; i++){
         if(board[row * boardSize**2 +i] == possibleNum){
-            console.log("violated row");
+            //console.log("violated row");
             return false;
         }
     }
@@ -34,7 +34,7 @@ export function valid(board: Array<number | undefined>, index: number, possibleN
     // check the col
     for (let i = 0; i < boardSize**2; i++){
         if(board[col + i*boardSize**2] == possibleNum){
-            console.log("violated col");
+            //console.log("violated col");
             return false;
         }
     }
@@ -45,9 +45,9 @@ export function valid(board: Array<number | undefined>, index: number, possibleN
     for (let i = box_y * boardSize; i < box_y*boardSize + boardSize; i++){
         for (let j = box_x * boardSize; j < box_x * boardSize + boardSize; j++){
             let possibleIndex = i*(boardSize**2) + j;
-            console.log("square check", possibleIndex);
+            //console.log("square check", possibleIndex);
             if(board[possibleIndex] == possibleNum && possibleIndex != index){
-                console.log("violated square");
+                //console.log("violated square");
                 return false;
             }
         }
@@ -62,15 +62,14 @@ export function valid(board: Array<number | undefined>, index: number, possibleN
  */
 export function solve(board: Array<number | undefined>, boardSize: number): boolean {
     let emptyIndex = find_empty(board, boardSize);
-    console.log("current solving index", emptyIndex);
+    //console.log("current solving index", emptyIndex);
     if (emptyIndex == undefined){
-        console.log("Solved", board);
+        //console.log("Solved", board);
         return true;
     }
     for (let i = 1; i <= boardSize**2; i++){
-        console.log(i);
         if(valid(board, emptyIndex, i, boardSize)){
-            console.log(i, "valid at", emptyIndex);
+            //console.log(i, "valid at", emptyIndex);
             board[emptyIndex] = i;
             if(solve(board, boardSize)){
                 return true;
@@ -80,4 +79,38 @@ export function solve(board: Array<number | undefined>, boardSize: number): bool
     }
 
     return false;
+}
+
+export function generatePuzzle(boardSize: number): Array<number> {
+    //randomly generate first box 
+    let digits = new Array();
+    for (let i = 1; i <= boardSize**2; i++){
+        digits.push(i);
+    }
+    let grid = [];
+    for (let i = 0; i < boardSize**4; i++){
+        if (i == 0
+            || i == 1
+            || i == 2
+            || i == 9
+            || i == 10
+            || i == 11
+            || i == 18
+            || i == 19
+            || i == 20){
+                let randomIndex = Math.floor(Math.random()*digits.length);
+                let randomDigit = digits[randomIndex];
+                digits.splice(randomIndex, 1);
+                grid.push(randomDigit);
+            }else{
+                grid.push(undefined);
+            }
+    }
+    //console.log(grid);
+    solve(grid, boardSize);
+    for (let i = 0; i < 40; i++){
+        let randomIndex = Math.floor(Math.random()*grid.length);
+        grid[randomIndex] = undefined;
+    }
+    return grid;
 }
