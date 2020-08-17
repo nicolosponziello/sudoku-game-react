@@ -42,6 +42,7 @@ class Board extends React.Component<Props, State>{
             for (let j = 0; j < this.state.boardSize**2; j++){
                 row.push(<Square key={i*this.state.boardSize**2+j} 
                                 index={i*this.state.boardSize**2+j} 
+                                editable={this.state.board[i*this.state.boardSize**2+j] != undefined}
                                 changeValue={this.changeCellValue}
                                 value={this.state.board[i*this.state.boardSize**2+j]} />);
             }
