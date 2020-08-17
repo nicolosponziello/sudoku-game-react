@@ -1,14 +1,14 @@
 import React from "react";
 import Square from "./Square";
+import { rootCertificates } from "tls";
 
 interface Props {
     boardSize: number;
 }
 
 interface State {
-    board: Array<number>;
+    board: Array<number | undefined>;
     boardSize: number;
-    selectedCell?: number;
 }
 
 class Board extends React.Component<Props, State>{
@@ -16,19 +16,17 @@ class Board extends React.Component<Props, State>{
         super(props);
         
         this.state = {
-            board: new Array(),
+            board: [],
             boardSize: props.boardSize,
-            selectedCell: undefined
         }
 
 
-        let cellsNum:number = props.boardSize**3;
+        let cellsNum:number = props.boardSize**4;
         for (let i = 0; i < cellsNum; i++){
-            this.state.board.push(i);
+            this.state.board.push(undefined);
         }
 
         this.changeCellValue = this.changeCellValue.bind(this);
-        this.selectCell = this.selectCell.bind(this);
     }
 
     changeCellValue (cell:number, value:number): void{
@@ -37,20 +35,30 @@ class Board extends React.Component<Props, State>{
         this.setState({board: board});
     }
 
-    selectCell (cell:number): void{
-        this.setState({selectedCell: cell});
-        console.log(cell);
+    createBoard() {
+        let board: Array<any>= [];
+        for (let i = 0; i < this.state.boardSize**2; i++){
+            let row = [];
+            for (let j = 0; j < this.state.boardSize**2; j++){
+                row.push(<Square key={i+j} 
+                                value={this.state.board[i*this.state.boardSize**2 + j]} 
+                                index={i*this.state.boardSize**2+j} 
+                                changeValue={this.changeCellValue} />);
+            }
+            row.push(< br/>);
+            board.push(row);
+        }
+        return board;
     }
 
     render(){
+        // i -> rows
+        // j -> cols
+        let board = this.createBoard();
+        console.log(board);
         return (
             <React.Fragment>
-                {this.state.board.map( square => <Square
-                                                    value={square}
-                                                    selected={square == this.state.selectedCell}
-                                                    changeValue={this.changeCellValue}
-                                                    setSelected={this.selectCell}
-                                                    />)}
+                {board}
             </React.Fragment>
         );
     }
