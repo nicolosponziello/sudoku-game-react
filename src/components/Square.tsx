@@ -18,7 +18,9 @@ class Square extends React.Component<Props, State> {
                 onChange={(ev) => {
                     let value: number = Number(ev.target.value);
                     this.props.changeValue(this.props.index, value);
-                }} />
+                }}
+                value={this.props.value}
+                />
         )
     }
 }
