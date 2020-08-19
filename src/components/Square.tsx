@@ -14,7 +14,7 @@ class Square extends React.Component<Props, State> {
 
     render(){
         return (
-            <input className="square"
+            <input className={`square ${this.props.editable ? "default-cell" : ""}`}
                 readOnly={this.props.editable}
                 onChange={(ev) => {
                     let value: number = Number(ev.target.value);

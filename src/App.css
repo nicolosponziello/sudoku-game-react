@@ -39,6 +39,9 @@ code {
   font-size: 1.1em;
 }
 
+.default-cell {
+  background-color: #7681ff;
+}
 .square:hover {
   background-color: lightblue;
 }
