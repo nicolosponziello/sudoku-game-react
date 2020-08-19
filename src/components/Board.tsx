@@ -81,7 +81,11 @@ class Board extends React.Component<Props, State>{
                         }
                     }}>solve</button>
                     <button className="btn" onClick={() => {
-                        this.setState({board: generatePuzzle(this.state.boardSize)});
+                        this.reset();
+                        let newBoard = generatePuzzle(this.state.boardSize);
+                        if(newBoard){
+                            this.setState({board: newBoard});
+                        }
                     }}>New game</button>
                     <button className="btn" onClick={() => {
                         this.setState({result: this.check()});

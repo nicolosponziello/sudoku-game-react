@@ -83,7 +83,7 @@ export function solve(board: Array<number | undefined>, boardSize: number): bool
     return false;
 }
 
-export function generatePuzzle(boardSize: number): Array<number> {
+export function generatePuzzle(boardSize: number): Array<number> | undefined {
     //randomly generate first box 
     let digits = new Array();
     for (let i = 1; i <= boardSize**2; i++){
@@ -109,12 +109,14 @@ export function generatePuzzle(boardSize: number): Array<number> {
             }
     }
     //console.log(grid);
-    solve(grid, boardSize);
-    for (let i = 0; i < 40; i++){
-        let randomIndex = Math.floor(Math.random()*grid.length);
-        grid[randomIndex] = undefined;
+    if(solve(grid, boardSize)){
+        for (let i = 0; i < 40; i++){
+            let randomIndex = Math.floor(Math.random()*grid.length);
+            grid[randomIndex] = undefined;
+        }
+        return grid;
     }
-    return grid;
+    return undefined;
 }
 
 /**
