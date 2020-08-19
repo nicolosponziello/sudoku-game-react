@@ -12,13 +12,29 @@ interface State {
 
 class Square extends React.Component<Props, State> {
 
+    validateInput(ev: React.KeyboardEvent): boolean{
+        //var key = String.fromCharCode(ev.keyCode);
+        //return event.charCode >= 48 && event.charCode <= 57
+        if(ev.charCode >= 48 && ev.charCode <= 57){
+            console.log("valid true");
+            return true;
+        }
+        console.log("valid false");
+        ev.preventDefault();
+        return false;
+    }
+
     render(){
         return (
-            <input className={`square ${this.props.editable ? "default-cell" : ""}`}
+            <input
+                className={`square ${this.props.editable ? "default-cell" : ""}`}
                 readOnly={this.props.editable}
+                onKeyPress={ev => this.validateInput(ev)}
                 onChange={(ev) => {
-                    let value: number = Number(ev.target.value);
-                    this.props.changeValue(this.props.index, value);
+                    if(Number(ev.target.value) != NaN){
+                        let value: number = Number(ev.target.value);
+                        this.props.changeValue(this.props.index, value);
+                    }
                 }}
                 value={this.props.value}
                 />
