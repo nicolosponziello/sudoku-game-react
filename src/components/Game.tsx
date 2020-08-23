@@ -3,8 +3,9 @@ import Board from "./Board";
 import { solve, generatePuzzle, valid, checkSolution } from "../modules";
 
 interface Props {
-
+    boardSize: number;
 }
+
 interface State {
     board: Array<number | undefined>;
     initialBoard: Array<number | undefined>;
@@ -16,7 +17,7 @@ export default class Game extends Component<Props, State> {
     constructor(props: Props){
         super(props);
 
-        let newBoard = generatePuzzle(3);
+        let newBoard = generatePuzzle(this.props.boardSize);
         this.state = {
             board: newBoard,
             initialBoard: newBoard,
@@ -44,7 +45,7 @@ export default class Game extends Component<Props, State> {
         this.setState({board: this.state.initialBoard});
     }
     newGame = (): void => {
-        let newBoard = generatePuzzle(3);
+        let newBoard = generatePuzzle(this.props.boardSize);
         this.setState({
             board: newBoard,
             initialBoard: newBoard,
@@ -52,12 +53,12 @@ export default class Game extends Component<Props, State> {
         });
     }
     solve = (): void => {
-        solve(this.state.board, 3);
+        solve(this.state.board, this.props.boardSize);
         this.setState({board: this.state.board});
         
     }
     check = (): void => {
-        if(checkSolution(this.state.board, 3)){
+        if(checkSolution(this.state.board, this.props.boardSize)){
             alert("Correct!");
         }else{
             alert("Wrong!");
@@ -74,7 +75,7 @@ export default class Game extends Component<Props, State> {
                     </button>
                 </div>
                 <div style={{display:"flex", justifyContent:"center"}}>
-                    <Board boardSize={3}
+                    <Board boardSize={this.props.boardSize}
                             board={this.state.board}
                             initialSquares={this.state.initialIndexes}
                             changeValueHandler={this.changeValue}/>
