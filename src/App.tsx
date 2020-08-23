@@ -3,12 +3,13 @@ import './App.css';
 import "./components/Board";
 import Board from './components/Board';
 import { Header } from './components/Header';
+import Game from './components/Game';
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <Board boardSize={3} />
+      <Game />
     </div>
   );
 }
