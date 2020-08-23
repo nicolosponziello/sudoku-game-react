@@ -1,5 +1,7 @@
 # Sudoku game
 
+![game-image](screenshots/screenshot.png)
+
 This project is a Sudoku game made with React and Typescript.
 To try this project, just:
 * clone the repo
