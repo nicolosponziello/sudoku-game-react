@@ -31,7 +31,7 @@ class Square extends React.Component<Props, State> {
                 readOnly={this.props.editable}
                 onKeyPress={ev => this.validateInput(ev)}
                 onChange={(ev) => {
-                    if(Number(ev.target.value) != NaN){
+                    if(!isNaN(Number(ev.target.value))){
                         let value: number = Number(ev.target.value);
                         this.props.changeValue(this.props.index, value);
                     }
