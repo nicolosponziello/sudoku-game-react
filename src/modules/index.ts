@@ -110,9 +110,9 @@ export function generatePuzzle(boardSize: number): Array<number> {
     }
     //console.log(grid);
     solve(grid, boardSize);
-    for (let i = 0; i < 1; i++){
-        let randomIndex = Math.floor(Math.random()*grid.length);
-        grid[randomIndex] = undefined;
+    for (let i = 0; i < boardSize ** 4; i++) {
+      let randomIndex = Math.floor(Math.random() * grid.length);
+      grid[randomIndex] = undefined;
     }
     return grid;
 }
